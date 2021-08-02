@@ -39,4 +39,26 @@ describe('corporations routes', () => {
 
     expect(res.body).toEqual(spacersChoice);
   });
+
+  it('gets all corporations from the database with GET', async () => {
+    const spacersChoice = await Corporation.insert({
+      companyName: 'spacers choice',
+      parentCompany: 'universal defense logistics',
+      slogan: 'its not the best choice, its spacers choice',
+    });
+    const auntieCleos = await Corporation.insert({
+      companyName: 'auntie cleos',
+      parentCompany: 'Kolway Pharmaceuticals',
+      slogan: 'the contractually obligated only choice',
+    });
+    const subLight = await Corporation.insert({
+      companyName: 'subLight Salvage and Shipping Corporation',
+      parentCompany: 'Groundbreaker Station',
+      slogan: 'subLight puts the organized in organized crime',
+    });
+
+    const res = await request(app).get('/api/v1/corporations/');
+
+    expect(res.body).toEqual([spacersChoice, auntieCleos, subLight]);
+  });
 });
