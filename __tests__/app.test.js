@@ -61,4 +61,23 @@ describe('corporations routes', () => {
 
     expect(res.body).toEqual([spacersChoice, auntieCleos, subLight]);
   });
+
+  it('updates a corporation in the database by id  with PUT', async () => {
+    const spacersChoice = await Corporation.insert({
+      companyName: 'spacers choice',
+      parentCompany: 'universal defense logistics',
+      slogan: 'its not the best choice, its spacers choice',
+    });
+
+    const res = await request(app)
+      .put(`/api/v1/corporations/${spacersChoice.id}`)
+      .send({
+        slogan: 'at spacers choice, we cut corners so you dont have to',
+      });
+
+    expect(res.body).toEqual({
+      ...spacersChoice,
+      slogan: 'at spacers choice, we cut corners so you dont have to',
+    });
+  });
 });
