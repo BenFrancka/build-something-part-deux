@@ -68,4 +68,25 @@ describe('spaceships routes', () => {
 
     expect(res.body).toEqual([rocinante, firefly, enterprise]);
   });
+
+  it('updates a spaceship in the database by id  with PUT', async () => {
+    const rocinante = await Spaceship.insert({
+      shipName: 'Rocinante',
+      shipSize: '46 meters',
+      captainName: 'James Holden',
+      fictionalUniverse: 'The Expanse',
+      crewSize: 4,
+    });
+
+    const res = await request(app)
+      .put(`/api/v1/spaceships/${rocinante.id}`)
+      .send({
+        captainName: 'Naomi Nagata',
+      });
+
+    expect(res.body).toEqual({
+      ...rocinante,
+      captainName: 'Naomi Nagata',
+    });
+  });
 });
