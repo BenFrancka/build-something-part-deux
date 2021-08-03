@@ -17,9 +17,7 @@ describe('spaceships routes', () => {
       crewSize: 5,
     };
 
-    const res = await request(app)
-      .post('/api/v1/spaceships')
-      .send(rocinante);
+    const res = await request(app).post('/api/v1/spaceships').send(rocinante);
 
     expect(res.body).toEqual({
       id: '1',
