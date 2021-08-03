@@ -3,7 +3,7 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 import Spaceship from '../lib/models/Spaceship.js';
-import e from 'express';
+
 
 describe('spaceships routes', () => {
   beforeEach(() => {
@@ -101,8 +101,6 @@ describe('spaceships routes', () => {
 
     const res = await request(app).delete(`/api/v1/spacehips/${rocinante.id}`);
 
-    expect(res.body).toEqual({
-      message: `Scans are negative: the ${rocinante.shipName} has gone dark and therefore removed from the database`,
-    });
+    expect(res.body).not.toContain(rocinante);
   });
 });
