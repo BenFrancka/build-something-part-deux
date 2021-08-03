@@ -14,7 +14,7 @@ describe('spaceships routes', () => {
       shipSize: '46 meters',
       captainName: 'James Holden',
       fictionalUniverse: 'The Expanse',
-      crewSize: 5,
+      crewSize: 4,
     };
 
     const res = await request(app).post('/api/v1/spaceships').send(rocinante);
