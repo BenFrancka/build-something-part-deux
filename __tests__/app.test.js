@@ -80,4 +80,20 @@ describe('corporations routes', () => {
       slogan: 'at spacers choice, we cut corners so you dont have to',
     });
   });
+
+  it('deletes a corporation from the database by id  with DELETE', async () => {
+    const spacersChoice = await Corporation.insert({
+      companyName: 'spacers choice',
+      parentCompany: 'universal defense logistics',
+      slogan: 'its not the best choice, its spacers choice',
+    });
+
+    const res = await request(app).delete(
+      `/api/v1/corporations/${spacersChoice.id}`
+    );
+
+    expect(res.body).toEqual({
+      message: `Board Notification: ${spacersChoice.companyName} has been liquidated and removed from the database`,
+    });
+  });
 });
