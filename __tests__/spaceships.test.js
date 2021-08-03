@@ -89,4 +89,20 @@ describe('spaceships routes', () => {
       captainName: 'Naomi Nagata',
     });
   });
+
+  it('deletes a spaceship from the database by id  with DELETE', async () => {
+    const rocinante = await Spaceship.insert({
+      shipName: 'Rocinante',
+      shipSize: '46 meters',
+      captainName: 'James Holden',
+      fictionalUniverse: 'The Expanse',
+      crewSize: 4,
+    });
+
+    const res = await request(app).delete(`/api/v1/spacehips/${rocinante.id}`);
+
+    expect(res.body).toEqual({
+      message: `Scans are negative: the ${rocinante.shipName} has gone dark and therefore removed from the database`,
+    });
+  });
 });
